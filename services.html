@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Claudia's Pet Care</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Dosis:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1b4332;
+            --secondary-color: #d8f3dc;
+            --light-color: #f5f5f5;
+            --dark-color: #343A40;
+            --font-big-header: 'Amatic SC', cursive;
+            --font-small-header: 'Courier New', monospace;
+            --font-content: 'Dosis', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-content);
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-big-header);
+        }
+
+        h4, h5, h6 {
+            font-family: var(--font-small-header);
+        }
+
+        p, li, a, span, table, input, textarea, select {
+            font-family: var(--font-content);
+        }
+
+        /* Background paw prints that appear throughout the site */
+        .bg-paws {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><g fill="%23d8f3dc" opacity="0.3"><path d="M30,15 C34,10 39,13 38,18 C37,23 33,24 30,22 C27,20 26,20 30,15z"/><path d="M43,10 C46,7 50,9 49,13 C48,17 45,17 43,16 C41,15 40,13 43,10z"/><path d="M25,25 C28,22 32,24 31,28 C30,32 27,32 25,31 C23,30 22,28 25,25z"/><path d="M48,25 C51,22 55,24 54,28 C53,32 50,32 48,31 C46,30 45,28 48,25z"/><path d="M36,26 C41,21 48,25 47,32 C46,39 41,40 36,38 C31,36 31,31 36,26z"/></g></svg>');
+            background-repeat: repeat;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        /* Header Styling */
+        .navbar {
+            background-color: var(--secondary-color) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 500;
+        }
+        
+        .nav-link.active {
+            background-color: rgba(27, 67, 50, 0.1) !important;
+            border-radius: 5px;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Section Styling */
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Service descriptions */
+        .service-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .service-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .service-icon {
+            background-color: var(--secondary-color);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .service-icon img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+
+        /* Pricing Table */
+        .pricing-table {
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .pricing-table th {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .pricing-table td {
+            vertical-align: middle;
+        }
+        
+        /* Additional services */
+        .additional-services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .service-tag {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 2rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Service detail sections */
+        .service-detail {
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        .service-detail:last-child {
+            border-bottom: none;
+        }
+
+        /* Image placeholders with icons */
+        .service-image-placeholder {
+            background-color: var(--secondary-color);
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* Compare services section */
+        .compare-box {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        /* Meet & Greet promo */
+        .meet-greet-banner {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .meet-greet-banner h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .heart-icon {
+            position: absolute;
+            font-size: 40px;
+            color: rgba(27, 67, 50, 0.2);
+        }
+
+        .heart-icon:nth-child(1) {
+            top: 10px;
+            right: 20px;
+            transform: rotate(10deg);
+        }
+
+        .heart-icon:nth-child(2) {
+            bottom: 10px;
+            left: 20px;
+            transform: rotate(-10deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background pattern -->
+    <div class="bg-paws"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Claudia's Pet Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container">
+        <div class="page-header">
+            <h1>Our Services</h1>
+            <p class="lead">Experienced & Nurturing Care For Your Pet, Every Time</p>
+        </div>
+    </div>
+
+    <!-- Services Content -->
+    <div class="container">
+        <!-- Pricing Table Section -->
+        <section class="content-section">
+            <h2 class="section-title">Service Pricing</h2>
+            <div class="pricing-table">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>30-minute Care Visit</td>
+                            <td>$25.00</td>
+                            <td>Perfect for quick check-ins, feeding, and potty breaks</td>
+                        </tr>
+                        <tr>
+                            <td>1-hour Care Visit</td>
+                            <td>$45.00</td>
+                            <td>Extended visit with feeding, playtime, and/or a walk</td>
+                        </tr>
+                        <tr>
+                            <td>2-hour Dog Hike</td>
+                            <td>$60.00</td>
+                            <td>Adventure at a local Wake Forest or Raleigh Park</td>
+                        </tr>
+                        <tr>
+                            <td>Overnight Visit<br>(10:00 PM to 7:00 AM)</td>
+                            <td>$50.00</td>
+                            <td>In-home overnight care to soothe anxiety and provide comfort</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="mt-2"><small>* Additional rates may apply for 3+ pets or during designated holidays.</small></p>
+            </div>
+        </section>
+
+        <!-- Service Details -->
+        <section class="content-section">
+            <h2 class="section-title">Service Details</h2>
+            
+            <!-- Daily Pet Sitting -->
+            <div class="service-detail" id="daily-sitting">
+                <div class="row align-items-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="service-image-placeholder">
+                            🏠
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Daily In-Home Pet Sitting</h3>
+                        <p>30 minute or 1 hour Pet Care Visit catered to your individual pet's needs. This can include feeding, potty time, playtime, and/or a walk! Each Care Visit can be booked individually or can be booked recurring weekly.</p>
+                        <p>These Care Visits are perfect when your pet could use some company while you're away—whether a long day at work, a trip out of town, etc.</p>
+                        <div class="mt-3">
+                            <a href="contact.html" class="btn btn-primary">Book This Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overnight Pet Sitting -->
+            <div class="service-detail" id="overnight">
+                <div class="row align-items-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="service-image-placeholder">
+                            🌙
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Overnight In-Home Pet Sitting</h3>
+                        <p>Overnight Pet Care Visit lasting from 10:00pm to 7:00am. If you're looking to soothe your pet's anxiety while you're away, or ensure that your pet is able to stay in the comfortability of their own home at night, this service in particular helps Claudia's Pet Care stand out from competing Day Care / Boarding Facilities.</p>
+                        <p>We love sleepover invites with your pets!</p>
+                        <div class="mt-3">
+                            <a href="contact.html" class="btn btn-primary">Book This Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dog Walks -->
+            <div class="service-detail" id="dog-walking">
+                <div class="row align-items-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="service-image-placeholder">
+                            🐕
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Dog Walking</h3>
+                        <p>30 minute or 1 hour Dog Walk priced the same as Pet Care Visits! At the time of your Meet & Greet, be sure to share your dog's usual walking routine, any queue words you may use while walking, things that your dog may be reactive to, or certain places your dog may particularly enjoy going, etc.</p>
+                        <div class="mt-3">
+                            <a href="contact.html" class="btn btn-primary">Book This Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dog Hikes -->
+            <div class="service-detail" id="dog-hikes">
+                <div class="row align-items-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="service-image-placeholder">
+                            🌲
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Dog Hikes</h3>
+                        <p>2 hour Dog Hike at a local Wake Forest or Raleigh Park! At the time of your Meet & Greet, be sure to share all the same details required of a Dog Walk. Feel free to discuss park options that your pup may particularly enjoy as well! Location of Hikes may vary with prior Client approval.</p>
+                        <div class="mt-3">
+                            <a href="contact.html" class="btn btn-primary">Book This Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Services -->
+        <section class="content-section">
+            <h2 class="section-title">Additional Services</h2>
+            <p>Besides animal care, I also enjoy offering Additional Service Requests. These may include, but are not limited to:</p>
+            
+            <div class="additional-services">
+                <span class="service-tag">Mail Pick-Up</span>
+                <span class="service-tag">Indoor/Outdoor Plant Care</span>
+                <span class="service-tag">Trash Pick-Up</span>
+                <span class="service-tag">Altering Indoor/Outdoor Lighting</span>
+                <span class="service-tag">Altering Drapes/Blinds</span>
+                <span class="service-tag">Pool Maintenance</span>
+            </div>
+            
+            <p class="mt-4">Just let me know what additional services you need during our Meet & Greet!</p>
+        </section>
+
+        <!-- Video Updates -->
+        <section class="content-section">
+            <h2 class="section-title">Video Updates</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <p>At every visit, my policy is to send you a 1 minute long video of your pet(s) recapping the Care Visit and what was completed, along with any photos I captured during our time together!</p>
+                    <p>This gives you peace of mind knowing your furry friends are happy and well-cared for while you're away.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="service-image-placeholder">
+                        📱
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet & Greet Banner -->
+        <div class="meet-greet-banner">
+            <span class="heart-icon">❤</span>
+            <span class="heart-icon">❤</span>
+            <h3>Complimentary Meet & Greet</h3>
+            <p>All new clients receive a free meet & greet in which I get to come to your home to meet you and your pet(s) in person, document all their care details for while you're away, and just ensure things are a good fit overall!</p>
+            <p><strong>BONUS:</strong> Keep your door tag to turn in at the time of your Meet & Greet and you'll receive 25% OFF your first booking!</p>
+            <a href="contact.html" class="btn btn-primary mt-2">Schedule Today</a>
+        </div>
+
+        <!-- Pet Sitting vs Boarding -->
+        <section class="content-section">
+            <h2 class="section-title">Benefits of In-Home Pet Sitting vs. Boarding Facilities</h2>
+            <p>From my personal experience alone, having worked 7+ years in numerous Veterinary/Boarding Kennels, I would strongly advocate for most pets that in-home pet sitting is much less stressful than the kennel, boarding, or doggy daycare facility environments.</p>
+            <p>If this is an option you are considering or would like more insight on, please feel free to reach out and I would love to discuss more about your pet's personality, routines, and which care option would best fit their needs!</p>
+            
+            <div class="text-center mt-4">
+                <a href="contact.html" class="btn btn-primary">Contact Me For More Info</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Claudia's Pet Care</h5>
+                    <p>Professional pet sitting and dog walking services based in Wake Forest, NC.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact</h5>
+                    <p>Phone: (984) 365-6281<br>
+                    Email: claudiaspetcare72@gmail.com</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Hours</h5>
+                    <p>Monday - Friday: 8:00 AM - 6:00 PM<br>
+                    Saturday - Sunday: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <p>&copy; 2025 Claudia's Pet Care. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Claudia's Pet Care</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Dosis:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1b4332;
+            --secondary-color: #d8f3dc;
+            --light-color: #f5f5f5;
+            --dark-color: #343A40;
+            --font-main: 'Arial', sans-serif;
+            --font-big-header: 'Amatic SC', cursive;
+            --font-small-header: 'Courier New', monospace;
+            --font-content: 'Dosis', sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-content);
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-big-header);
+        }
+
+        h4, h5, h6 {
+            font-family: var(--font-small-header);
+        }
+
+        p, li, a, span, table, input, textarea, select {
+            font-family: var(--font-content);
+        }
+
+        /* Background paw prints that appear throughout the site */
+        .bg-paws {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><g fill="%23d8f3dc" opacity="0.3"><path d="M30,15 C34,10 39,13 38,18 C37,23 33,24 30,22 C27,20 26,20 30,15z"/><path d="M43,10 C46,7 50,9 49,13 C48,17 45,17 43,16 C41,15 40,13 43,10z"/><path d="M25,25 C28,22 32,24 31,28 C30,32 27,32 25,31 C23,30 22,28 25,25z"/><path d="M48,25 C51,22 55,24 54,28 C53,32 50,32 48,31 C46,30 45,28 48,25z"/><path d="M36,26 C41,21 48,25 47,32 C46,39 41,40 36,38 C31,36 31,31 36,26z"/></g></svg>');
+            background-repeat: repeat;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        /* Header Styling */
+        .navbar {
+            background-color: var(--secondary-color) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+            font-family: var(--font-big-header);
+        }
+        
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 500;
+        }
+        
+        .nav-link.active {
+            background-color: rgba(27, 67, 50, 0.1) !important;
+            border-radius: 5px;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--primary-color);
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
+
+        /* Section Styling */
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Contact info */
+        .contact-info {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        
+        .contact-detail {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .contact-icon {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        /* Contact form */
+        .contact-form {
+            margin-top: 20px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(216, 243, 220, 0.25);
+        }
+        
+        .form-floating label {
+            color: #6c757d;
+        }
+        
+        /* Location section */
+        .location-info {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .location-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .map-placeholder {
+            background-color: var(--secondary-color);
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* Business hours */
+        .hours-table {
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .hours-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .hours-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 2rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Meet & Greet promo */
+        .meet-greet-banner {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .meet-greet-banner h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+        }
+
+        .heart-icon {
+            position: absolute;
+            font-size: 40px;
+            color: rgba(27, 67, 50, 0.2);
+        }
+
+        .heart-icon:nth-child(1) {
+            top: 10px;
+            right: 20px;
+            transform: rotate(10deg);
+        }
+
+        .heart-icon:nth-child(2) {
+            bottom: 10px;
+            left: 20px;
+            transform: rotate(-10deg);
+        }
+        
+        /* QR code display */
+        .qr-paw {
+            background-color: var(--secondary-color);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .qr-code-placeholder {
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            margin: 0 auto 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+        
+        /* Form success/error messages */
+        #form-message {
+            display: none;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background pattern -->
+    <div class="bg-paws"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Claudia's Pet Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container">
+        <div class="page-header">
+            <h1>Contact Us</h1>
+            <p class="lead">Get in touch to schedule your complimentary Meet & Greet!</p>
+        </div>
+    </div>
+
+    <!-- Contact Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Contact Information -->
+            <div class="col-lg-5 mb-4">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-detail">
+                        <span class="contact-icon">📞</span> (984) 365-6281
+                    </div>
+                    <div class="contact-detail">
+                        <span class="contact-icon">✉️</span> claudiaspetcare72@gmail.com
+                    </div>
+                    <div class="mt-4">
+                        <a href="tel:9843656281" class="btn btn-primary me-2">Call</a>
+                        <a href="sms:9843656281" class="btn btn-primary me-2">Text</a>
+                        <a href="mailto:claudiaspetcare72@gmail.com" class="btn btn-primary">Email</a>
+                    </div>
+                </div>
+                
+                <div class="location-info">
+                    <h3>Service Area</h3>
+                    <p>Claudia's Pet Care is based in Wake Forest, NC, and serves the surrounding areas.</p>
+                    <div class="map-placeholder">
+                        🗺️
+                    </div>
+                </div>
+                
+                <div class="location-info">
+                    <h3>Business Hours</h3>
+                    <table class="hours-table">
+                        <tr>
+                            <td><strong>Monday - Friday:</strong></td>
+                            <td class="text-end">8:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Saturday - Sunday:</strong></td>
+                            <td class="text-end">9:00 AM - 5:00 PM</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="col-lg-7 mb-4">
+                <div class="content-section">
+                    <h2 class="section-title">Schedule a Meet & Greet</h2>
+                    <p class="text-center mb-4">Fill out the form below to schedule your complimentary Meet & Greet, and we'll get back to you as soon as possible!</p>
+                    
+                    <!-- Form message display -->
+                    <div id="form-message" class="success-message" style="display: none;">
+                        Form submitted! Your default mail client will open.
+                    </div>
+                    
+                    <!-- Form with mailto only -->
+                    <form class="contact-form" id="contact-form" action="mailto:claudiaspetcare72@gmail.com" method="post" enctype="text/plain">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                                    <label for="name">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                                    <label for="phone">Phone Number</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                                <label for="email">Email Address</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Home Address" required>
+                                <label for="address">Home Address</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" id="service" name="service" required>
+                                    <option selected disabled value="">Select a Service</option>
+                                    <option>Daily In-Home Pet Sitting</option>
+                                    <option>Dog Walking</option>
+                                    <option>Dog Hikes</option>
+                                    <option>Overnight Visits</option>
+                                    <option>Multiple Services</option>
+                                </select>
+                                <label for="service">Service Interested In</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <textarea class="form-control" id="message" name="message" style="height: 150px" placeholder="Tell us about your pet(s) and your care needs" required></textarea>
+                                <label for="message">Tell us about your pet(s) and your care needs</label>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Schedule Meet & Greet</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- QR Code Section -->
+                <div class="qr-paw">
+                    <h3>Scan Our QR Code</h3>
+                    <p>When you're ready to book your Meet & Greet and/or dates of care, scan the QR code below!</p>
+                    <div class="qr-code-placeholder">
+                        <img src="/api/placeholder/150/150" alt="QR Code" class="img-fluid">
+                    </div>
+                </div>
+                
+                <!-- Meet & Greet Banner -->
+                <div class="meet-greet-banner">
+                    <span class="heart-icon">❤</span>
+                    <span class="heart-icon">❤</span>
+                    <h3>Complimentary Meet & Greet</h3>
+                    <p>All new clients receive a free Meet & Greet where I come to your home to meet you and your pet(s), document all their care details, and ensure we're a good fit!</p>
+                    <p><strong>BONUS:</strong> You'll receive 25% OFF your first booking!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Claudia's Pet Care</h5>
+                    <p>Professional pet sitting and dog walking services based in Wake Forest, NC.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact</h5>
+                    <p>Phone: (984) 365-6281<br>
+                    Email: claudiaspetcare72@gmail.com</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Hours</h5>
+                    <p>Monday - Friday: 8:00 AM - 6:00 PM<br>
+                    Saturday - Sunday: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <p>&copy; 2025 Claudia's Pet Care. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Simple form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            
+            contactForm.addEventListener('submit', function() {
+                // Show a success message when form is submitted
+                formMessage.style.display = 'block';
+                
+                // The form will naturally open the mailto link
+                // No need to prevent default or handle manually
+            });
+        });
+    </script>
+</body>
+</html>

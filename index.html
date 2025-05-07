@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claudia's Pet Care - Professional Pet Sitting & Dog Walking</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Dosis:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1b4332;
+            --secondary-color: #d8f3dc;
+            --light-color: #f5f5f5;
+            --dark-color: #343A40;
+            --font-big-header: 'Amatic SC', cursive;
+            --font-small-header: 'Courier New', monospace;
+            --font-content: 'Dosis', sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-content);
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-big-header);
+        }
+
+        h4, h5, h6 {
+            font-family: var(--font-small-header);
+        }
+
+        p, li, a, span, table, input, textarea, select {
+            font-family: var(--font-content);
+        }
+
+        /* Background paw prints that appear throughout the site */
+        .bg-paws {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><g fill="%23d8f3dc" opacity="0.3"><path d="M30,15 C34,10 39,13 38,18 C37,23 33,24 30,22 C27,20 26,20 30,15z"/><path d="M43,10 C46,7 50,9 49,13 C48,17 45,17 43,16 C41,15 40,13 43,10z"/><path d="M25,25 C28,22 32,24 31,28 C30,32 27,32 25,31 C23,30 22,28 25,25z"/><path d="M48,25 C51,22 55,24 54,28 C53,32 50,32 48,31 C46,30 45,28 48,25z"/><path d="M36,26 C41,21 48,25 47,32 C46,39 41,40 36,38 C31,36 31,31 36,26z"/></g></svg>');
+            background-repeat: repeat;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        /* Header Styling */
+        .navbar {
+            background-color: var(--secondary-color) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 500;
+        }
+        
+        .nav-link.active {
+            background-color: rgba(27, 67, 50, 0.1) !important;
+            border-radius: 5px;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background-color: var(--secondary-color);
+            padding: 3rem 0;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .hero-section p {
+            font-size: 1.2rem;
+        }
+
+        /* Section Styling */
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Card styling */
+        .card {
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .service-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Pricing Table */
+        .pricing-table {
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-table th {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        /* Testimonials */
+        .testimonial {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* Promotion Boxes */
+        .promo-box {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .promo-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Contact info */
+        .contact-info {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 2rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Additional styles for services page */
+        .service-detail {
+            display: flex;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .service-image {
+            flex: 0 0 40%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-text {
+            flex: 0 0 60%;
+            padding: 20px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .service-detail {
+                flex-direction: column;
+            }
+            
+            .service-image {
+                flex: 0 0 200px;
+            }
+        }
+
+        /* Image gallery for pets */
+        .pet-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .pet-gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            background-color: var(--secondary-color);
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Meet & Greet promo */
+        .meet-greet-banner {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .meet-greet-banner h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .heart-icon {
+            position: absolute;
+            font-size: 40px;
+            color: rgba(27, 67, 50, 0.2);
+        }
+
+        .heart-icon:nth-child(1) {
+            top: 10px;
+            right: 20px;
+            transform: rotate(10deg);
+        }
+
+        .heart-icon:nth-child(2) {
+            bottom: 10px;
+            left: 20px;
+            transform: rotate(-10deg);
+        }
+
+        /* QR code display */
+        .qr-paw {
+            background-color: var(--secondary-color);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background pattern -->
+    <div class="bg-paws"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Claudia's Pet Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container">
+        <div class="hero-section">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <img src="/api/placeholder/600/400" alt="Claudia with a dog" class="img-fluid rounded" style="border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                </div>
+                <div class="col-lg-6 order-lg-1 p-4">
+                    <h1>Looking for a Trusted Pet Sitter or Dog Walker?</h1>
+                    <p class="lead">Claudia's Pet Care provides professional pet sitting & dog walking based out of Wake Forest, NC!</p>
+                    <a href="contact.html" class="btn btn-primary mt-3">Schedule a Meet & Greet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Welcome Section -->
+        <section class="content-section">
+            <h2 class="section-title">Welcome to Claudia's Pet Care</h2>
+            <p>Looking for a trusted pet sitter or dog walker? Claudia's Pet Care provides professional pet sitting and dog walking services based out of Wake Forest, NC. We ensure your pets receive the best care while you're away, keeping them comfortable in their familiar environment.</p>
+            <p>Call, text, or email today to schedule your complimentary meet & greet!</p>
+            <div class="text-center mt-4">
+                <a href="tel:9843656281" class="btn btn-primary mx-2">(984) 365-6281</a>
+                <a href="mailto:claudiaspetcare72@gmail.com" class="btn btn-outline-primary mx-2">claudiaspetcare72@gmail.com</a>
+            </div>
+        </section>
+
+        <!-- Services Preview -->
+        <section class="content-section">
+            <h2 class="section-title">Our Services</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Daily In-Home Pet Sitting</h5>
+                            <p class="card-text">30 minute or 1 hour visits catered to your pet's individual needs.</p>
+                            <p class="fw-bold">$25.00 - $45.00</p>
+                            <a href="services.html#daily-sitting" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Dog Walking</h5>
+                            <p class="card-text">30 minute or 1 hour walks to keep your dog happy and healthy.</p>
+                            <p class="fw-bold">$25.00 - $45.00</p>
+                            <a href="services.html#dog-walking" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Dog Hikes</h5>
+                            <p class="card-text">2 hour dog hikes at local Wake Forest or Raleigh parks.</p>
+                            <p class="fw-bold">$60.00</p>
+                            <a href="services.html#dog-hikes" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Overnight Visits</h5>
+                            <p class="card-text">Overnight care from 10:00pm to 7:00am in your home.</p>
+                            <p class="fw-bold">$50.00</p>
+                            <a href="services.html#overnight" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="services.html" class="btn btn-primary">View All Services</a>
+            </div>
+        </section>
+
+        <!-- Meet & Greet Banner -->
+        <div class="meet-greet-banner">
+            <span class="heart-icon">❤</span>
+            <span class="heart-icon">❤</span>
+            <h3>Complimentary Meet & Greet</h3>
+            <p>All new clients receive a free meet & greet where I come to your home to meet you and your pet(s), document all their care details, and ensure we're a good fit!</p>
+            <p><strong>BONUS:</strong> You'll receive 25% OFF your first booking!</p>
+            <a href="contact.html" class="btn btn-primary mt-2">Schedule Today</a>
+        </div>
+
+        <!-- Testimonials -->
+        <section class="content-section">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Claudia is amazing with my anxious rescue dog! He actually gets excited when she comes over now. The peace of mind knowing he's in good hands is priceless."</p>
+                        <p class="testimonial-author">- Sarah J.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"The peace of mind I get knowing my cats are well cared for while I'm traveling is priceless. Claudia sends videos after every visit which I absolutely love!"</p>
+                        <p class="testimonial-author">- Michael T.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CPP Family Gallery -->
+        <section class="content-section">
+            <h2 class="section-title">Meet Our CPP Family</h2>
+            <p class="text-center mb-4">All photos were captured during Care Visits!</p>
+            <div class="pet-gallery">
+                <div class="pet-gallery-item">
+                    <img src="/api/placeholder/150/150" alt="Happy dog" class="img-fluid">
+                </div>
+                <div class="pet-gallery-item">
+                    <img src="/api/placeholder/150/150" alt="Happy cat" class="img-fluid">
+                </div>
+                <div class="pet-gallery-item">
+                    <img src="/api/placeholder/150/150" alt="Dog outdoors" class="img-fluid">
+                </div>
+                <div class="pet-gallery-item">
+                    <img src="/api/placeholder/150/150" alt="Pet with owner" class="img-fluid">
+                </div>
+                <div class="pet-gallery-item">
+                    <img src="/api/placeholder/150/150" alt="Dog smile" class="img-fluid">
+                </div>
+                <div class="pet-gallery-item">
+                    <img src="/api/placeholder/150/150" alt="Pet play time" class="img-fluid">
+                </div>
+            </div>
+            <p class="text-center">At every visit, I send you a 1-minute video of your pet(s) recapping the care visit, along with photos captured during our time together!</p>
+        </section>
+
+        <!-- Referral Program -->
+        <section class="content-section">
+            <h2 class="section-title">Special Referral Offer</h2>
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h3>Refer a Friend!</h3>
+                    <p>If you are an existing client, refer a new client and you will receive <strong>50% off your next booking!</strong></p>
+                    <p>This is a token of my appreciation for helping me grow my small local business. Thank you to each and every pet & owner for your support. ❤</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div style="font-size: 80px; color: var(--primary-color);">🏷️</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Claudia's Pet Care</h5>
+                    <p>Professional pet sitting and dog walking services based in Wake Forest, NC.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact</h5>
+                    <p>Phone: (984) 365-6281<br>
+                    Email: claudiaspetcare72@gmail.com</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Hours</h5>
+                    <p>Monday - Friday: 8:00 AM - 6:00 PM<br>
+                    Saturday - Sunday: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <p>&copy; 2025 Claudia's Pet Care. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
