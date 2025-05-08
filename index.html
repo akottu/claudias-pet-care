@@ -50,22 +50,22 @@
         }
         
         /* Header Styling */
-        .navbar {
-            background-color: var(--secondary-color) !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .navbar-brand {
+        .navbar, .navbar-brand, .nav-link {
+            font-family: 'Amatic SC', cursive !important;
             font-weight: bold;
-            color: var(--primary-color) !important;
             font-size: 1.5rem;
         }
-        
+
+        .navbar-brand {
+            font-size: 2rem; /* Slightly larger for the brand name */
+        }
+
         .nav-link {
             color: var(--primary-color) !important;
-            font-weight: 500;
+            font-size: 1.5rem;
+            text-transform: uppercase;
         }
-        
+
         .nav-link.active {
             background-color: rgba(27, 67, 50, 0.1) !important;
             border-radius: 5px;
